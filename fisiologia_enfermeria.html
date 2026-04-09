@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fisiología Aplicada a la Enfermería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FDFAF4;
+    --deep-teal: #0D4A4A;
+    --teal: #1A6B6B;
+    --teal-light: #2A8A8A;
+    --accent-gold: #C9A84C;
+    --accent-rose: #C45C6A;
+    --accent-blue: #3B6FA0;
+    --accent-green: #4A8C5C;
+    --accent-purple: #7B5EA7;
+    --accent-orange: #D4703A;
+    --text-dark: #1C2B2B;
+    --text-mid: #3D5050;
+    --text-light: #6B8080;
+    --border: #D6CFC0;
+    --card-shadow: 0 4px 24px rgba(13,74,74,0.10);
+    --card-shadow-hover: 0 12px 48px rgba(13,74,74,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--deep-teal);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  .nav-links { display: flex; gap: 0.25rem; }
+  .nav-btn {
+    background: none; border: none;
+    color: rgba(245,240,232,0.75);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: rgba(201,168,76,0.18);
+    color: var(--accent-gold);
+  }
+  .nav-progress {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(245,240,232,0.6);
+    font-size: 0.8rem;
+  }
+  .progress-pill {
+    background: rgba(201,168,76,0.2);
+    color: var(--accent-gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.78rem;
+  }
+
+  /* ===== VIEWS ===== */
+  .view { display: none; padding-top: 60px; min-height: 100vh; }
+  .view.active { display: block; }
+
+  /* ===== HOME ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--deep-teal) 0%, var(--teal) 60%, #1A5050 100%);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--accent-gold);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    font-weight: 900;
+  }
+  .hero h1 span { color: var(--accent-gold); }
+  .hero p {
+    color: rgba(245,240,232,0.7);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--accent-gold);
+    color: var(--deep-teal);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+  }
+  .hero-cta:hover {
+    background: #D4B05C;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(201,168,76,0.4);
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem;
+    margin-top: 3.5rem; padding-top: 2.5rem;
+    border-top: 1px solid rgba(245,240,232,0.1);
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    color: var(--accent-gold);
+    display: block;
+  }
+  .stat-label {
+    color: rgba(245,240,232,0.5);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  /* Systems Grid */
+  .systems-section { padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; font-weight: 700;
+    color: var(--text-dark);
+  }
+  .section-sub { color: var(--text-light); font-size: 0.9rem; }
+
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .system-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .system-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-color, var(--teal));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .system-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px); }
+  .system-card:hover::before { transform: scaleX(1); }
+  .system-card.done { background: #F0FFF4; border-color: #A8D5B5; }
+
+  .card-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .card-num {
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .card-title {
+    font-size: 0.8rem; font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+  .card-sub {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+  .card-status {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    margin-top: 0.75rem;
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+  }
+  .status-done { background: #D4F0DC; color: #1E7A35; }
+  .status-pending { background: #EEF2F7; color: var(--text-light); }
+
+  /* ===== SYSTEM VIEW ===== */
+  .system-view-header {
+    background: linear-gradient(135deg, var(--deep-teal), var(--teal));
+    padding: 2.5rem 2rem 2rem;
+    color: white;
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px; cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1.5rem;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+  .system-view-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    margin-bottom: 0.4rem;
+  }
+  .system-view-header p { color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+
+  .tab-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; gap: 0;
+    position: sticky; top: 60px; z-index: 50;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 500;
+    padding: 1rem 1.2rem;
+    cursor: pointer; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--teal); }
+  .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 600; }
+
+  .tab-content { display: none; padding: 2rem; max-width: 860px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* Physiology Content */
+  .content-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.3s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .content-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .content-block p, .content-block li {
+    color: var(--text-mid);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .content-block ul { padding-left: 1.25rem; }
+  .content-block li { margin-bottom: 0.35rem; }
+
+  /* Accordion */
+  .accordion { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem; }
+  .accordion-header {
+    background: var(--cream);
+    border: none; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--text-dark);
+    transition: background 0.2s;
+  }
+  .accordion-header:hover { background: #EDE8DC; }
+  .accordion-icon { font-size: 1.2rem; transition: transform 0.25s; }
+  .accordion-icon.open { transform: rotate(180deg); }
+  .accordion-body {
+    display: none; padding: 1rem 1.25rem;
+    background: white;
+    font-size: 0.88rem; color: var(--text-mid);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .accordion-body.open { display: block; }
+
+  /* Disease Cards */
+  .disease-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .disease-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .disease-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); }
+  .disease-card-header {
+    padding: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .disease-icon { font-size: 1.75rem; }
+  .disease-name { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); }
+  .disease-tag { font-size: 0.7rem; color: var(--text-light); margin-top: 0.1rem; }
+  .disease-body {
+    display: none; padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .disease-body.open { display: block; animation: fadeUp 0.25s ease; }
+  .disease-body dt {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--teal); margin-top: 0.85rem; margin-bottom: 0.2rem;
+  }
+  .disease-body dd { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; }
+
+  /* PAE */
+  .pae-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
+  .pae-step {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1rem;
+    text-align: center; position: relative;
+  }
+  .pae-num {
+    width: 28px; height: 28px;
+    background: var(--teal); color: white;
+    border-radius: 50%; font-size: 0.8rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 0.75rem;
+  }
+  .pae-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .pae-title { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.3rem; }
+  .pae-desc { font-size: 0.75rem; color: var(--text-light); line-height: 1.45; }
+
+  /* Quiz */
+  .quiz-start {
+    text-align: center; padding: 3rem 2rem;
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .quiz-start h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 0.5rem;
+  }
+  .quiz-start p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem; }
+  .quiz-types { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .quiz-type-btn {
+    background: var(--cream); border: 2px solid var(--border);
+    border-radius: 10px; padding: 0.75rem 1.25rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--text-mid);
+    transition: all 0.2s;
+  }
+  .quiz-type-btn:hover, .quiz-type-btn.selected {
+    border-color: var(--teal); color: var(--teal);
+    background: rgba(26,107,107,0.06);
+  }
+  .btn-primary {
+    background: var(--teal); color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    padding: 0.85rem 2rem; border-radius: 8px; border: none;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--deep-teal); transform: translateY(-1px); }
+
+  /* Active Quiz */
+  .quiz-active { display: none; }
+  .quiz-progress-bar {
+    height: 4px; background: var(--border);
+    border-radius: 2px; margin-bottom: 2rem; overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%; background: var(--teal);
+    border-radius: 2px; transition: width 0.4s ease;
+  }
+  .question-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .question-meta { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .question-text { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.55; }
+  .options-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .option-btn {
+    background: var(--cream); border: 2px solid var(--border);
+    border-radius: 10px; padding: 0.85rem 1.25rem;
+    text-align: left; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--text-dark); font-weight: 400;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--teal); background: rgba(26,107,107,0.06); }
+  .option-btn.correct { border-color: #2E9E4A; background: #F0FFF4; color: #1E7A35; }
+  .option-btn.wrong { border-color: var(--accent-rose); background: #FFF0F2; color: var(--accent-rose); }
+  .option-letter {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--border); color: var(--text-mid);
+    font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .feedback-box {
+    margin-top: 1rem; padding: 1rem 1.25rem;
+    border-radius: 10px; font-size: 0.87rem;
+    display: none;
+  }
+  .feedback-box.show { display: block; animation: fadeUp 0.2s ease; }
+  .feedback-box.correct { background: #F0FFF4; border: 1px solid #A8D5B5; color: #1E7A35; }
+  .feedback-box.wrong { background: #FFF0F2; border: 1px solid #F5B8BF; color: #9B2A37; }
+  .next-btn-wrap { text-align: right; margin-top: 1.25rem; }
+
+  /* Quiz Results */
+  .quiz-results { display: none; text-align: center; padding: 2rem; }
+  .results-score {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--deep-teal));
+    color: white; font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 24px rgba(13,74,74,0.3);
+  }
+  .results-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .results-sub { color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem; }
+  .results-actions { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-outline {
+    background: none; border: 2px solid var(--teal); color: var(--teal);
+    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.9rem;
+    padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--teal); color: white; }
+
+  /* ===== PROFILE VIEW ===== */
+  .profile-container { max-width: 780px; margin: 0 auto; padding: 2rem; }
+  .profile-header-card {
+    background: linear-gradient(135deg, var(--deep-teal), var(--teal));
+    border-radius: 16px; padding: 2rem;
+    color: white; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(201,168,76,0.2);
+    border: 3px solid var(--accent-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+  }
+  .profile-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+  .profile-role { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 0.2rem; }
+  .profile-stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
+  .profile-stat { text-align: center; }
+  .profile-stat span:first-child { display: block; font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent-gold); }
+  .profile-stat span:last-child { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .progress-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 0.75rem;
+  }
+  .system-progress-item {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .spi-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .spi-info { flex: 1; }
+  .spi-name { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.3rem; }
+  .spi-bar { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .spi-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+  .spi-pct { font-size: 0.78rem; font-weight: 700; color: var(--teal); flex-shrink: 0; }
+
+  /* ===== AUTHORS VIEW ===== */
+  .authors-container { max-width: 860px; margin: 0 auto; padding: 2rem; }
+  .authors-hero {
+    background: linear-gradient(135deg, var(--deep-teal), var(--teal));
+    border-radius: 16px; padding: 2rem 2.5rem;
+    color: white; margin-bottom: 2rem; text-align: center;
+  }
+  .authors-hero h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .authors-hero p { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+  .authors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+  .author-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem 1.5rem;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .author-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); }
+  .author-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--deep-teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin: 0 auto 1rem;
+  }
+  .author-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+  .author-role { font-size: 0.75rem; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+  .author-bio { font-size: 0.8rem; color: var(--text-light); line-height: 1.55; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero-stats { gap: 1.5rem; }
+    .systems-grid { grid-template-columns: repeat(2, 1fr); }
+    .pae-grid { grid-template-columns: repeat(2, 1fr); }
+    .profile-header-card { flex-direction: column; text-align: center; }
+    .profile-stats { justify-content: center; }
+    .nav-progress { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showView('home')">🩺 FisiEnfermería</div>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nav-home" onclick="showView('home')">Inicio</button>
+    <button class="nav-btn" id="nav-profile" onclick="showView('profile')">Mi Perfil</button>
+    <button class="nav-btn" id="nav-authors" onclick="showView('authors')">Autores</button>
+  </div>
+  <div class="nav-progress">
+    <span>Progreso</span>
+    <span class="progress-pill" id="nav-progress-pill">0/10</span>
+  </div>
+</nav>
+
+<!-- ===== HOME VIEW ===== -->
+<div class="view active" id="view-home">
+  <div class="hero">
+    <div class="hero-badge">Plataforma Educativa · Enfermería</div>
+    <h1>Fisiología Aplicada<br>a la <span>Enfermería</span></h1>
+    <p>Comprende el cuerpo humano para cuidar con conocimiento, precisión y empatía.</p>
+    <button class="hero-cta" onclick="startLearning()">
+      Iniciar aprendizaje <span>→</span>
+    </button>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">10</span><span class="stat-label">Sistemas</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Secciones</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Aprendizaje</span></div>
+    </div>
+  </div>
+
+  <div class="systems-section">
+    <div class="section-header">
+      <span class="section-title">Sistemas del Cuerpo</span>
+      <span class="section-sub">Selecciona uno para comenzar</span>
+    </div>
+    <div class="systems-grid" id="systems-grid"></div>
+  </div>
+</div>
+
+<!-- ===== SYSTEM VIEW ===== -->
+<div class="view" id="view-system">
+  <div class="system-view-header">
+    <button class="back-btn" onclick="showView('home')">← Volver</button>
+    <h2 id="sys-title">Sistema</h2>
+    <p id="sys-subtitle">Subtítulo</p>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('fisiologia')">📖 Fisiología</button>
+    <button class="tab-btn" onclick="showTab('enfermedades')">🔬 Enfermedades</button>
+    <button class="tab-btn" onclick="showTab('pae')">🩺 PAE</button>
+    <button class="tab-btn" onclick="showTab('quiz')">✏️ Evaluación</button>
+  </div>
+
+  <!-- Tab: Fisiología -->
+  <div class="tab-content active" id="tab-fisiologia"></div>
+
+  <!-- Tab: Enfermedades -->
+  <div class="tab-content" id="tab-enfermedades"></div>
+
+  <!-- Tab: PAE -->
+  <div class="tab-content" id="tab-pae"></div>
+
+  <!-- Tab: Quiz -->
+  <div class="tab-content" id="tab-quiz">
+    <div class="quiz-start" id="quiz-start-screen">
+      <div style="font-size:3rem;margin-bottom:1rem;">🧠</div>
+      <h3>Aprende, Analiza y Cuida</h3>
+      <p>Pon a prueba tu conocimiento sobre este sistema.</p>
+      <div class="quiz-types">
+        <button class="quiz-type-btn selected" onclick="selectQuizType(this,'mcq')">📝 Selección múltiple</button>
+        <button class="quiz-type-btn" onclick="selectQuizType(this,'complete')">✏️ Completar frases</button>
+      </div>
+      <button class="btn-primary" onclick="startQuiz()">Comenzar evaluación</button>
+    </div>
+    <div class="quiz-active" id="quiz-active-screen">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+      <div class="question-card">
+        <div class="question-meta" id="q-meta">Pregunta 1 de 4</div>
+        <div class="question-text" id="q-text"></div>
+        <div class="options-list" id="q-options"></div>
+        <div class="feedback-box" id="q-feedback"></div>
+        <div class="next-btn-wrap">
+          <button class="btn-primary" id="q-next-btn" style="display:none" onclick="nextQuestion()">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+    <div class="quiz-results" id="quiz-results-screen">
+      <div class="results-score" id="results-score">0/4</div>
+      <div class="results-title" id="results-title">¡Buen trabajo!</div>
+      <div class="results-sub" id="results-sub">Resultado de la evaluación</div>
+      <div class="results-actions">
+        <button class="btn-outline" onclick="restartQuiz()">🔄 Intentar de nuevo</button>
+        <button class="btn-primary" onclick="showView('home')">Continuar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROFILE VIEW ===== -->
+<div class="view" id="view-profile">
+  <div class="profile-container">
+    <div class="profile-header-card">
+      <div class="avatar">👩‍⚕️</div>
+      <div>
+        <div class="profile-name">Estudiante de Enfermería</div>
+        <div class="profile-role">Facultad de Ciencias de la Salud</div>
+        <div class="profile-stats">
+          <div class="profile-stat"><span id="p-completed">0</span><span>Completados</span></div>
+          <div class="profile-stat"><span id="p-score">—</span><span>Mejor área</span></div>
+          <div class="profile-stat"><span id="p-reinforce">—</span><span>Reforzar</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-section-title">Progreso por sistemas</div>
+    <div id="profile-progress-list"></div>
+  </div>
+</div>
+
+<!-- ===== AUTHORS VIEW ===== -->
+<div class="view" id="view-authors">
+  <div class="authors-container">
+    <div class="authors-hero">
+      <h2>Equipo de Autores</h2>
+      <p>Estudiantes y docentes comprometidos con la educación en salud</p>
+    </div>
+    <div class="authors-grid">
+      <div class="author-card"><div class="author-avatar">👩‍⚕️</div><div class="author-name">Autora Principal</div><div class="author-role">Coordinadora</div><div class="author-bio">Estudiante de Enfermería apasionada por la fisiología y la tecnología educativa.</div></div>
+      <div class="author-card"><div class="author-avatar">👨‍⚕️</div><div class="author-name">Colaborador 1</div><div class="author-role">Contenidos</div><div class="author-bio">Especialista en fisiología cardiovascular y respiratoria aplicada al cuidado.</div></div>
+      <div class="author-card"><div class="author-avatar">👩‍💻</div><div class="author-name">Colaboradora 2</div><div class="author-role">Diseño</div><div class="author-bio">Responsable del diseño interactivo y la experiencia de usuario de la plataforma.</div></div>
+      <div class="author-card"><div class="author-avatar">👨‍🏫</div><div class="author-name">Docente Tutor</div><div class="author-role">Asesor</div><div class="author-bio">Docente universitario con experiencia en fisiología aplicada y procesos de atención de enfermería.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const SYSTEMS = [
+  {
+    id: 0, icon: '🔬', color: '#3B6FA0',
+    title: 'Autocuidado como base de la vida',
+    sub: 'Fisiología celular y general',
+    physiology: {
+      def: 'La fisiología celular estudia las funciones de la célula como unidad básica de la vida: transporte de membrana, metabolismo energético y comunicación celular.',
+      functions: ['Obtención y uso de energía (ATP)', 'Síntesis de proteínas y ARN', 'Reproducción y ciclo celular', 'Respuesta a señales hormonales y nerviosas'],
+      clinical: 'Comprender la fisiología celular permite al enfermero/a reconocer alteraciones metabólicas, déficits nutricionales y efectos farmacológicos a nivel tisular.',
+      components: ['Membrana celular', 'Núcleo y material genético', 'Mitocondrias', 'Retículo endoplasmático', 'Aparato de Golgi'],
+      accordions: [
+        { q: '¿Qué es el transporte activo?', a: 'Mecanismo que mueve sustancias en contra de su gradiente de concentración usando energía (ATP). Ejemplo: bomba Na⁺/K⁺.' },
+        { q: '¿Qué es el potencial de membrana?', a: 'Diferencia de carga eléctrica entre el interior (−70 mV) y el exterior de la célula en reposo, fundamental para la función nerviosa y muscular.' }
+      ]
+    },
+    diseases: [
+      { icon: '🧬', name: 'Apoptosis patológica', tag: 'Muerte celular programada', def: 'Activación anormal de la muerte celular programada.', patho: 'Señales de daño activan caspasas, llevando a fragmentación del ADN y destrucción celular.', etio: 'Isquemia, toxinas, radiación, infecciones virales.', signs: 'Pérdida de tejido funcional, inflamación, disfunción orgánica.' },
+      { icon: '⚡', name: 'Desequilibrio electrolítico', tag: 'Alteración iónica', def: 'Alteración en las concentraciones de iones esenciales.', patho: 'Desequilibrio de Na⁺, K⁺, Ca²⁺ afecta la excitabilidad neuronal y muscular.', etio: 'Deshidratación, insuficiencia renal, vómitos, diarrea.', signs: 'Calambres, arritmias, confusión, debilidad.' },
+      { icon: '🧪', name: 'Acidosis metabólica', tag: 'Trastorno del pH', def: 'pH sanguíneo < 7,35 por acumulación de ácidos o pérdida de bicarbonato.', patho: 'Exceso de H⁺ altera función enzimática celular.', etio: 'Diabetes, insuficiencia renal, diarrea severa.', signs: 'Respiración de Kussmaul, confusión, hipotensión.' }
+    ],
+    pae: [
+      { icon: '📋', title: 'Valoración', desc: 'Datos subjetivos y objetivos del estado celular/metabólico' },
+      { icon: '🔍', title: 'Diagnóstico', desc: 'Identificación de alteraciones nutricionales o metabólicas' },
+      { icon: '🎯', title: 'Planeación', desc: 'Objetivos de restaurar equilibrio metabólico' },
+      { icon: '💊', title: 'Ejecución', desc: 'Intervenciones de soporte nutricional y monitoreo' },
+      { icon: '📊', title: 'Evaluación', desc: 'Reevaluar parámetros bioquímicos y clínicos' }
+    ],
+    quiz: [
+      { q: '¿Cuál es la unidad básica de la vida?', opts: ['El tejido', 'La célula', 'El órgano', 'La molécula'], correct: 1, exp: 'La célula es la unidad estructural y funcional de todos los seres vivos.' },
+      { q: '¿Qué orgánulo produce energía (ATP)?', opts: ['Núcleo', 'Ribosoma', 'Mitocondria', 'Lisosoma'], correct: 2, exp: 'Las mitocondrias son las centrales energéticas de la célula, produciendo ATP mediante respiración celular.' },
+      { q: '¿Qué bomba iónica mantiene el potencial de membrana?', opts: ['Bomba Na⁺/K⁺', 'Bomba de Ca²⁺', 'Bomba H⁺/ATPasa', 'Canal de Cl⁻'], correct: 0, exp: 'La bomba Na⁺/K⁺ ATPasa mantiene el gradiente iónico expulsando 3 Na⁺ e internalizando 2 K⁺.' },
+      { q: '¿Qué pH indica acidosis metabólica?', opts: ['7.45', '7.40', '7.32', '7.50'], correct: 2, exp: 'Un pH < 7.35 indica acidosis. 7.32 es un valor claramente acidótico.' }
+    ]
+  },
+  {
+    id: 1, icon: '🧠', color: '#7B5EA7',
+    title: 'Regulación y respuesta neurológica',
+    sub: 'Fisiología del sistema nervioso',
+    physiology: {
+      def: 'El sistema nervioso regula y coordina las funciones del organismo mediante señales electroquímicas. Se divide en SNC (encéfalo + médula) y SNP (nervios periféricos).',
+      functions: ['Integración y procesamiento de información sensorial', 'Control motor voluntario e involuntario', 'Regulación del sistema nervioso autónomo', 'Funciones cognitivas: memoria, aprendizaje, emoción'],
+      clinical: 'El enfermero/a valora el estado neurológico mediante la Escala de Glasgow, reflejos pupilares y patrones de conciencia para detectar deterioro temprano.',
+      components: ['Neuronas', 'Células gliales', 'Sinapsis', 'Neurotransmisores', 'Barrera hematoencefálica'],
+      accordions: [
+        { q: '¿Qué es un potencial de acción?', a: 'Cambio rápido y reversible del potencial de membrana neuronal que se propaga a lo largo del axón. Inicia con despolarización (entrada de Na⁺) y termina con repolarización (salida de K⁺).' },
+        { q: '¿Qué función cumple la mielina?', a: 'Vaina lipídica que rodea los axones, acelerando la conducción nerviosa mediante la conducción saltatoria entre los nodos de Ranvier.' }
+      ]
+    },
+    diseases: [
+      { icon: '⚡', name: 'Epilepsia', tag: 'Trastorno convulsivo', def: 'Descargas eléctricas anormales y repetitivas en el cerebro.', patho: 'Desequilibrio entre neurotransmisores excitadores e inhibidores (GABA).', etio: 'Genética, trauma craneal, infecciones del SNC.', signs: 'Convulsiones, pérdida de conciencia, automatismos.' },
+      { icon: '🩸', name: 'ACV Isquémico', tag: 'Accidente cerebrovascular', def: 'Interrupción del flujo sanguíneo cerebral por oclusión arterial.', patho: 'Necrosis neuronal por privación de O₂ y glucosa.', etio: 'Trombosis, embolia, fibrilación auricular.', signs: 'Hemiparesia, afasia, desviación de la mirada.' },
+      { icon: '🧬', name: 'Enfermedad de Alzheimer', tag: 'Demencia neurodegenerativa', def: 'Deterioro progresivo de la función cognitiva por pérdida neuronal.', patho: 'Depósito de placas de β-amiloide y ovillos de tau.', etio: 'Genética, edad avanzada, factores ambientales.', signs: 'Pérdida de memoria, desorientación, cambios de personalidad.' }
+    ],
+    pae: [
+      { icon: '📋', title: 'Valoración', desc: 'Escala de Glasgow, función pupilar, signos de focalización' },
+      { icon: '🔍', title: 'Diagnóstico', desc: 'Riesgo de deterioro de la perfusión cerebral' },
+      { icon: '🎯', title: 'Planeación', desc: 'Mantener presión intracraneal normal y oxigenación' },
+      { icon: '💊', title: 'Ejecución', desc: 'Posición 30°, monitoreo neurológico c/h, manejo farmacológico' },
+      { icon: '📊', title: 'Evaluación', desc: 'Glasgow, orientación, fuerza muscular, lenguaje' }
+    ],
+    quiz: [
+      { q: '¿Cuál es el neurotransmisor inhibitorio principal del SNC?', opts: ['Dopamina', 'Acetilcolina', 'GABA', 'Serotonina'], correct: 2, exp: 'GABA (ácido γ-aminobutírico) es el principal neurotransmisor inhibitorio del SNC.' },
+      { q: '¿Qué escala se usa para valorar el nivel de conciencia?', opts: ['Escala de Borg', 'Escala de Glasgow', 'Escala de Braden', 'Escala de Norton'], correct: 1, exp: 'La Escala de Coma de Glasgow evalúa apertura ocular, respuesta verbal y motora (3-15 puntos).' },
+      { q: '¿Qué tipo de célula forma la vaina de mielina en el SNC?', opts: ['Células de Schwann', 'Astrocitos', 'Oligodendrocitos', 'Microglía'], correct: 2, exp: 'Los oligodendrocitos forman la mielina en el SNC; las células de Schwann lo hacen en el SNP.' },
+      { q: 'La tríada de Cushing indica:', opts: ['Hipoglucemia', 'Hipertensión intracraneal', 'Sepsis', 'Insuficiencia cardíaca'], correct: 1, exp: 'La tríada de Cushing (HTA, bradicardia, respiración irregular) indica hipertensión intracraneal grave.' }
+    ]
+  },
+  {
+    id: 2, icon: '❤️', color: '#C45C6A',
+    title: 'La perfusión como expresión de la vida',
+    sub: 'Fisiología del sistema cardiovascular',
+    physiology: {
+      def: 'El sistema cardiovascular transporta O₂, nutrientes, hormonas y desechos a través del cuerpo. El corazón actúa como bomba doble impulsando sangre hacia la circulación pulmonar y sistémica.',
+      functions: ['Bombeo de sangre oxigenada a los tejidos', 'Retorno de sangre desoxigenada al pulmón', 'Regulación de la presión arterial', 'Distribución del calor corporal'],
+      clinical: 'El enfermero/a monitoriza FC, PA, ritmo cardíaco, llenado capilar y signos de bajo gasto para identificar compromiso hemodinámico.',
+      components: ['Corazón (4 cámaras)', 'Arterias y venas', 'Capilares', 'Sistema de conducción eléctrica', 'Válvulas cardíacas'],
+      accordions: [
+        { q: '¿Qué es el ciclo cardíaco?', a: 'Secuencia completa de sístole (contracción) y diástole (relajación) ventricular. Un ciclo dura ~0.8 s en reposo (75 lpm). La sístole expulsa ~70 ml (volumen sistólico).' },
+        { q: '¿Cómo se regula la presión arterial?', a: 'A través del gasto cardíaco (FC × VS) y la resistencia vascular periférica. El SRAA, el sistema nervioso simpático y los barorreceptores son los principales reguladores.' }
+      ]
+    },
+    diseases: [
+      { icon: '💔', name: 'Infarto Agudo de Miocardio', tag: 'Evento coronario agudo', def: 'Necrosis miocárdica por oclusión coronaria completa.', patho: 'Ruptura de placa aterosclerótica → trombo → isquemia → necrosis.', etio: 'Aterosclerosis, HTA, diabetes, tabaquismo.', signs: 'Dolor torácico opresivo, diaforesis, disnea, náuseas.' },
+      { icon: '📉', name: 'Insuficiencia Cardíaca', tag: 'Falla de bomba', def: 'Incapacidad del corazón para satisfacer las demandas metabólicas.', patho: 'Reducción del gasto cardíaco → activación neurohormonal compensadora.', etio: 'IAM previo, HTA, valvulopatías, cardiopatías congénitas.', signs: 'Disnea, edema, ortopnea, fatiga, crepitantes.' },
+      { icon: '⚡', name: 'Fibrilación Auricular', tag: 'Arritmia supraventricular', def: 'Actividad eléctrica auricular caótica sin contracción efectiva.', patho: 'Múltiples circuitos de reentrada → frecuencia auricular 350-600 lpm.', etio: 'HTA, valvulopatías, hipertiroidismo, alcohol.', signs: 'Palpitaciones irregulares, disnea, mareos, riesgo de ACV.' }
+    ],
+    pae: [
+      { icon: '📋', title: 'Valoración', desc: 'FC, PA, ritmo ECG, llenado capilar, edemas, saturación O₂' },
+      { icon: '🔍', title: 'Diagnóstico', desc: 'Gasto cardíaco disminuido / Riesgo de perfusión tisular ineficaz' },
+      { icon: '🎯', title: 'Planeación', desc: 'Restaurar hemodinamia, prevenir complicaciones tromboembólicas' },
+      { icon: '💊', title: 'Ejecución', desc: 'Monitorización continua, O₂, fármacos vasoactivos, reposo' },
+      { icon: '📊', title: 'Evaluación', desc: 'Normalización de FC, PA, diuresis y saturación de O₂' }
+    ],
+    quiz: [
+      { q: '¿Qué representa el intervalo PR en el ECG?', opts: ['Despolarización ventricular', 'Conducción AV', 'Repolarización ventricular', 'Sístole auricular'], correct: 1, exp: 'El intervalo PR refleja el tiempo de conducción del nodo AV (0.12-0.20 s normal).' },
+      { q: '¿Cuál es el gasto cardíaco normal en reposo?', opts: ['1-2 L/min', '3-4 L/min', '5-6 L/min', '8-10 L/min'], correct: 2, exp: 'El GC normal en reposo es 5-6 L/min (FC ~75 lpm × VS ~70 mL).' },
+      { q: 'El signo más característico del IAM es:', opts: ['Fiebre', 'Dolor torácico opresivo irradiado', 'Cianosis', 'Hipertensión'], correct: 1, exp: 'El dolor torácico retroesternal opresivo, irradiado al brazo izquierdo o mandíbula, es el signo clásico del IAM.' },
+      { q: '¿Qué fármaco es de primera línea en IAM?', opts: ['Furosemida', 'Aspirina', 'Amiodarona', 'Digoxina'], correct: 1, exp: 'La aspirina (300 mg masticada) inhibe la agregación plaquetaria y es primera línea en IAM.' }
+    ]
+  },
+  {
+    id: 3, icon: '🫁', color: '#4A8C5C',
+    title: 'Respirar es vivir',
+    sub: 'Fisiología del sistema respiratorio',
+    physiology: {
+      def: 'El sistema respiratorio garantiza el intercambio gaseoso: O₂ hacia la sangre y CO₂ hacia el exterior. La ventilación, la difusión y la perfusión son sus tres procesos clave.',
+      functions: ['Ventilación pulmonar (inspiración/espiración)', 'Difusión de gases en alvéolos', 'Transporte de O₂ y CO₂ en sangre', 'Regulación del equilibrio ácido-base'],
+      clinical: 'Monitorizar SpO₂, frecuencia respiratoria, patrón ventilatorio y gases arteriales es fundamental para detectar insuficiencia respiratoria.',
+      components: ['Vías aéreas superiores', 'Tráquea y bronquios', 'Alvéolos pulmonares', 'Pleura', 'Músculos respiratorios (diafragma)'],
+      accordions: [
+        { q: '¿Qué es la capacidad vital?', a: 'Volumen máximo de aire que puede ser espirado tras una inspiración máxima. Normal: ~4.8 L en hombres, ~3.4 L en mujeres. Se reduce en enfermedades restrictivas.' },
+        { q: '¿Cómo se transporta el O₂ en sangre?', a: '98% unido a hemoglobina (oxihemoglobina) y 2% disuelto en plasma. 1 g de Hb puede unir 1.34 mL de O₂. La curva de disociación de O₂-Hb es sigmoide.' }
+      ]
+    },
+    diseases: [
+      { icon: '🌬️', name: 'EPOC', tag: 'Enfermedad pulmonar obstructiva', def: 'Limitación crónica del flujo aéreo, progresiva y parcialmente reversible.', patho: 'Inflamación crónica → destrucción alveolar (enfisema) + hipersecreción mucosa (bronquitis).', etio: 'Tabaquismo (80%), contaminación, déficit de α-1 antitripsina.', signs: 'Disnea progresiva, tos productiva, sibilancias, uso de músculos accesorios.' },
+      { icon: '🫧', name: 'Asma bronquial', tag: 'Hiperreactividad bronquial', def: 'Inflamación crónica con broncoespasmo reversible.', patho: 'Respuesta TH2 exagerada → liberación de mediadores inflamatorios → broncoconstricción.', etio: 'Alérgenos, ejercicio, infecciones, irritantes.', signs: 'Sibilancias, opresión torácica, tos nocturna, disnea episódica.' },
+      { icon: '🦠', name: 'Neumonía', tag: 'Infección pulmonar', def: 'Inflamación del parénquima pulmonar por agentes infecciosos.', patho: 'Colonización alveolar → exudado inflamatorio → consolidación → hipoxemia.', etio: 'Streptococcus pneumoniae, virus (influenza, COVID), Mycoplasma.', signs: 'Fiebre, escalofríos, tos productiva, dolor pleurítico, crepitantes.' }
+    ],
+    pae: [
+      { icon: '📋', title: 'Valoración', desc: 'SpO₂, FR, patrón respiratorio, ruidos pulmonares, gasometría' },
+      { icon: '🔍', title: 'Diagnóstico', desc: 'Deterioro del intercambio gaseoso / Patrón respiratorio ineficaz' },
+      { icon: '🎯', title: 'Planeación', desc: 'SpO₂ > 94%, reducir trabajo respiratorio, mejorar ventilación' },
+      { icon: '💊', title: 'Ejecución', desc: 'O₂ suplementario, posición Fowler, broncodilatadores, fisioterapia' },
+      { icon: '📊', title: 'Evaluación', desc: 'SpO₂, FR, uso de músculos accesorios, gases arteriales' }
+    ],
+    quiz: [
+      { q: '¿Cuál es la saturación de O₂ normal?', opts: ['85-90%', '90-93%', '94-100%', '80-85%'], correct: 2, exp: 'La SpO₂ normal es 94-100%. Valores < 90% indican hipoxemia grave.' },
+      { q: '¿Qué músculo es el principal de la respiración?', opts: ['Intercostales', 'Escalenos', 'Diafragma', 'Esternocleidomastoideo'], correct: 2, exp: 'El diafragma genera ~70% del trabajo ventilatorio durante la respiración en reposo.' },
+      { q: '¿Qué posición favorece la ventilación pulmonar?', opts: ['Decúbito prono', 'Trendelenburg', 'Fowler (30-45°)', 'Decúbito lateral izquierdo'], correct: 2, exp: 'La posición Fowler facilita el descenso del diafragma y reduce la presión abdominal sobre los pulmones.' },
+      { q: 'En EPOC, ¿qué patrón espirométrico se observa?', opts: ['Restrictivo', 'Mixto', 'Normal', 'Obstructivo'], correct: 3, exp: 'El patrón obstructivo (VEF1/CVF < 70%) es la marca espirométrica de la EPOC.' }
+    ]
+  },
+  {
+    id: 4, icon: '💧', color: '#3B6FA0',
+    title: 'Equilibrio interno y conservación',
+    sub: 'Fisiología del sistema renal',
+    physiology: {
+      def: 'Los riñones regulan el volumen, composición y pH de los líquidos corporales mediante filtración, reabsorción y secreción. Producen orina y secretan hormonas como eritropoyetina y renina.',
+      functions: ['Filtración glomerular (~120 mL/min)', 'Regulación hídrica y electrolítica', 'Equilibrio ácido-base', 'Eliminación de productos de desecho'],
+      clinical: 'Monitorizar diuresis (mín 0.5 mL/kg/h), creatinina, BUN y electrolitos es esencial para detectar lesión renal aguda.',
+      components: ['Glomérulo', 'Túbulo contorneado proximal', 'Asa de Henle', 'Túbulo contorneado distal', 'Conducto colector'],
+      accordions: [
+        { q: '¿Qué es la tasa de filtración glomerular?', a: 'Volumen de plasma filtrado por los riñones por unidad de tiempo. Normal: 90-120 mL/min/1.73m². Disminuye con la edad y en enfermedades renales.' },
+        { q: '¿Cómo regulan los riñones el pH?', a: 'Mediante reabsorción de bicarbonato (HCO₃⁻) y excreción de H⁺ y amonio. Los riñones compensan desequilibrios ácido-base en 24-48 h.' }
+      ]
+    },
+    diseases: [
+      { icon: '🩸', name: 'Lesión Renal Aguda', tag: 'Fallo renal súbito', def: 'Reducción brusca de la función renal en horas o días.', patho: 'Reducción del flujo → isquemia tubular → necrosis → oliguria/anuria.', etio: 'Hipovolemia, sepsis, nefrotóxicos, obstrucción.', signs: 'Oliguria, edema, hiperpotasemia, acidosis, uremia.' },
+      { icon: '⚗️', name: 'ERC (Crónica)', tag: 'Deterioro renal progresivo', def: 'Pérdida progresiva e irreversible de la función renal > 3 meses.', patho: 'Fibrosis túbulo-intersticial progresiva → pérdida de nefronas funcionantes.', etio: 'Diabetes, HTA, glomerulonefritis, enfermedades congénitas.', signs: 'Anemia, hiperfosfatemia, HTA, edema, acidosis metabólica.' },
+      { icon: '🦠', name: 'Infección urinaria', tag: 'ITU', def: 'Colonización bacteriana del tracto urinario.', patho: 'Ascenso de bacterias (E. coli ~80%) desde la uretra hacia vejiga y riñón.', etio: 'Higiene deficiente, cateterismo, obstrucción urinaria.', signs: 'Disuria, polaquiuria, tenesmo, fiebre (si pielonefritis), orina turbia.' }
+    ],
+    pae: [
+      { icon: '📋', title: 'Valoración', desc: 'Diuresis horaria, creatinina, electrolitos, balance hídrico' },
+      { icon: '🔍', title: 'Diagnóstico', desc: 'Exceso o déficit de volumen / Riesgo de desequilibrio electrolítico' },
+      { icon: '🎯', title: 'Planeación', desc: 'Diuresis ≥ 0.5 mL/kg/h, electrolitos en rango, pH 7.35-7.45' },
+      { icon: '💊', title: 'Ejecución', desc: 'Control estricto de líquidos, diuréticos, soporte nutricional' },
+      { icon: '📊', title: 'Evaluación', desc: 'Creatinina, BUN, electrolitos, peso, edemas' }
+    ],
+    quiz: [
+      { q: '¿Cuál es la diuresis mínima aceptable?', opts: ['0.1 mL/kg/h', '0.3 mL/kg/h', '0.5 mL/kg/h', '1 mL/kg/h'], correct: 2, exp: 'Una diuresis < 0.5 mL/kg/h se considera oliguria e indica posible hipoperfusión renal.' },
+      { q: '¿Qué hormona produce el riñón para estimular la eritropoyesis?', opts: ['Renina', 'Aldosterona', 'ADH', 'Eritropoyetina'], correct: 3, exp: 'La eritropoyetina (EPO) es producida por células peritubulares renales y estimula la producción de eritrocitos en médula ósea.' },
+      { q: '¿Qué electrolito se retiene en la insuficiencia renal?', opts: ['Sodio', 'Calcio', 'Potasio', 'Magnesio'], correct: 2, exp: 'El potasio (K⁺) se acumula en la insuficiencia renal (hiperpotasemia) y puede causar arritmias graves.' },
+      { q: '¿Cuál es la TFG normal en adultos?', opts: ['30-60 mL/min', '60-89 mL/min', '90-120 mL/min', '>150 mL/min'], correct: 2, exp: 'La tasa de filtración glomerular normal es 90-120 mL/min/1.73m².' }
+    ]
+  },
+  { id: 5, icon: '🦴', color: '#D4703A', title: 'Estructura, movimiento y funcionalidad', sub: 'Fisiología del sistema osteomuscular', physiology: { def: 'El sistema osteomuscular proporciona estructura, protección y movimiento al organismo.', functions: ['Soporte y estructura corporal', 'Protección de órganos vitales', 'Movimiento voluntario', 'Hematopoyesis en médula ósea'], clinical: 'Valorar fuerza muscular, rango de movimiento y signos de fractura/inflamación articular.', components: ['Huesos (206)', 'Articulaciones', 'Músculos esqueléticos', 'Tendones y ligamentos', 'Cartílagos'], accordions: [{ q: '¿Qué es la remodelación ósea?', a: 'Proceso continuo de reabsorción ósea por osteoclastos y formación de hueso nuevo por osteoblastos.' }] }, diseases: [{ icon: '🦴', name: 'Osteoporosis', tag: 'Pérdida de masa ósea', def: 'Reducción de la densidad mineral ósea.', patho: 'Desequilibrio entre reabsorción y formación ósea.', etio: 'Menopausia, sedentarismo, déficit de Ca/Vit D.', signs: 'Fracturas por fragilidad, cifosis, dolor óseo.' }], pae: [{ icon: '📋', title: 'Valoración', desc: 'Fuerza muscular, rango articular, dolor, densitometría' }, { icon: '🔍', title: 'Diagnóstico', desc: 'Deterioro de la movilidad física' }, { icon: '🎯', title: 'Planeación', desc: 'Preservar función motora y prevenir caídas' }, { icon: '💊', title: 'Ejecución', desc: 'Ejercicio, calcio, vitamina D, fisioterapia' }, { icon: '📊', title: 'Evaluación', desc: 'Fuerza, movilidad, densitometría ósea' }], quiz: [{ q: '¿Cuántos huesos tiene el cuerpo humano adulto?', opts: ['180', '196', '206', '215'], correct: 2, exp: 'El esqueleto humano adulto tiene 206 huesos.' }, { q: '¿Qué célula reabsorbe el hueso?', opts: ['Osteoblasto', 'Osteoclasto', 'Osteocito', 'Condrocito'], correct: 1, exp: 'Los osteoclastos son células multinucleadas que reabsorben tejido óseo.' }, { q: '¿Qué vitamina es esencial para la absorción de calcio?', opts: ['Vitamina A', 'Vitamina C', 'Vitamina D', 'Vitamina K'], correct: 2, exp: 'La vitamina D facilita la absorción intestinal de calcio y fósforo.' }, { q: '¿Qué tipo de músculo es el cardíaco?', opts: ['Esquelético', 'Liso', 'Estriado involuntario', 'Voluntario'], correct: 2, exp: 'El músculo cardíaco es estriado involuntario, con características únicas de los dos tipos.' }] },
+  { id: 6, icon: '🛡️', color: '#C9A84C', title: 'Protección e integridad', sub: 'Fisiología del sistema tegumentario', physiology: { def: 'La piel es el órgano más extenso del cuerpo, actuando como barrera física, termorreguladora e inmune.', functions: ['Barrera protectora frente a patógenos', 'Regulación de temperatura corporal', 'Síntesis de vitamina D', 'Sensación táctil, presión, dolor y temperatura'], clinical: 'Valorar integridad cutánea, hidratación, lesiones y signos de infección es parte esencial de la evaluación de enfermería.', components: ['Epidermis', 'Dermis', 'Hipodermis', 'Folículos pilosos', 'Glándulas sudoríparas y sebáceas'], accordions: [{ q: '¿Cómo regula la piel la temperatura?', a: 'Mediante vasodilatación/vasoconstricción dérmica y sudoración. En calor: vasodilatación y sudoración disipan calor; en frío: vasoconstricción retiene calor.' }] }, diseases: [{ icon: '🔥', name: 'Quemaduras', tag: 'Lesión térmica', def: 'Destrucción tisular por agentes térmicos, químicos o eléctricos.', patho: 'Desnaturalización proteica → pérdida de barrera → infección → desequilibrio hidroelectrolítico.', etio: 'Fuego, líquidos calientes, electricidad, sustancias químicas.', signs: 'Eritema, ampollas, necrosis según profundidad, dolor.' }], pae: [{ icon: '📋', title: 'Valoración', desc: 'Inspección cutánea, Escala de Braden, hidratación' }, { icon: '🔍', title: 'Diagnóstico', desc: 'Deterioro de la integridad cutánea / Riesgo de infección' }, { icon: '🎯', title: 'Planeación', desc: 'Restaurar integridad cutánea y prevenir infección' }, { icon: '💊', title: 'Ejecución', desc: 'Curaciones, hidratación, cambios de posición, nutrición' }, { icon: '📊', title: 'Evaluación', desc: 'Cicatrización, signos de infección, Escala de Braden' }], quiz: [{ q: '¿Cuál es la capa más superficial de la piel?', opts: ['Dermis', 'Hipodermis', 'Epidermis', 'Tejido subcutáneo'], correct: 2, exp: 'La epidermis es la capa más externa de la piel, formada principalmente por queratinocitos.' }, { q: 'Una quemadura con ampollas y base rosada corresponde a:', opts: ['1er grado', '2do grado superficial', '2do grado profundo', '3er grado'], correct: 1, exp: 'Las quemaduras de 2° grado superficial comprometen epidermis y dermis superficial, formando ampollas dolorosas.' }, { q: '¿Qué escala valora el riesgo de úlceras por presión?', opts: ['Escala de Glasgow', 'Escala de Braden', 'Escala de Borg', 'Escala de Norton'], correct: 1, exp: 'La Escala de Braden evalúa 6 factores de riesgo para úlceras por presión (14-23 puntos).' }, { q: '¿En qué capa cutánea se encuentran los folículos pilosos?', opts: ['Epidermis', 'Dermis', 'Hipodermis', 'Todas las anteriores'], correct: 1, exp: 'Los folículos pilosos se originan en la dermis, aunque se extienden hacia la epidermis.' }] },
+  { id: 7, icon: '🩸', color: '#9B2A37', title: 'Defensa y equilibrio', sub: 'Fisiología hematológica e inmunitaria', physiology: { def: 'La sangre transporta gases, nutrientes y células inmunes. El sistema inmune protege al organismo de infecciones y agentes extraños mediante respuestas innata y adaptativa.', functions: ['Transporte de O₂ por eritrocitos', 'Hemostasia por plaquetas y factores coagulación', 'Defensa inmune innata (neutrófilos)', 'Respuesta adaptativa (linfocitos T y B)'], clinical: 'Valorar hemograma completo, signos de infección, hemorragias y estados de inmunodepresión.', components: ['Eritrocitos', 'Leucocitos (neutrófilos, linfocitos, monocitos)', 'Plaquetas', 'Plasma', 'Médula ósea'], accordions: [{ q: '¿Qué es la cascada de coagulación?', a: 'Serie de reacciones enzimáticas que culmina en la formación de fibrina para sellar heridas. Incluye vía intrínseca (contacto) y extrínseca (factor tisular).' }] }, diseases: [{ icon: '🩸', name: 'Anemia', tag: 'Déficit de hemoglobina', def: 'Reducción de la capacidad transportadora de O₂.', patho: 'Disminución de eritrocitos o Hb → hipoxia tisular.', etio: 'Déficit de Fe, B12, folato; hemólisis; hemorragia crónica.', signs: 'Palidez, fatiga, disnea de esfuerzo, taquicardia, palpitaciones.' }], pae: [{ icon: '📋', title: 'Valoración', desc: 'Hemograma, signos de sangrado, palidez, adenopatías' }, { icon: '🔍', title: 'Diagnóstico', desc: 'Perfusión tisular ineficaz / Riesgo de infección' }, { icon: '🎯', title: 'Planeación', desc: 'Hemoglobina en rango, prevenir infecciones oportunistas' }, { icon: '💊', title: 'Ejecución', desc: 'Transfusiones, hierro, ácido fólico, medidas de aislamiento' }, { icon: '📊', title: 'Evaluación', desc: 'Hemograma, signos de infección, tolerancia al ejercicio' }], quiz: [{ q: '¿Cuál es la hemoglobina normal en mujeres?', opts: ['10-11 g/dL', '12-16 g/dL', '17-20 g/dL', '8-10 g/dL'], correct: 1, exp: 'La Hb normal en mujeres adultas es 12-16 g/dL; en hombres 14-18 g/dL.' }, { q: '¿Qué leucocito es el primero en responder a infecciones?', opts: ['Linfocito', 'Monocito', 'Basófilo', 'Neutrófilo'], correct: 3, exp: 'Los neutrófilos son los primeros en llegar al sitio de infección (primeras 6-12 h) y son los más abundantes.' }, { q: '¿Qué vitamina es esencial para la coagulación?', opts: ['Vitamina A', 'Vitamina B12', 'Vitamina K', 'Vitamina C'], correct: 2, exp: 'La vitamina K es cofactor para la síntesis hepática de los factores de coagulación II, VII, IX y X.' }, { q: 'Una plaqueta < 50.000/µL indica:', opts: ['Normalidad', 'Policitemia', 'Riesgo de hemorragia grave', 'Trombocitosis'], correct: 2, exp: 'Con plaquetas < 50.000/µL existe riesgo significativo de hemorragia espontánea; < 20.000 es crítico.' }] },
+  { id: 8, icon: '🍽️', color: '#5C8A3C', title: 'Nutrición y energía para el cuidado', sub: 'Fisiología del sistema digestivo', physiology: { def: 'El sistema digestivo transforma los alimentos en nutrientes absorbibles. Consta de un tubo digestivo de 9 metros desde la boca al ano, con órganos accesorios (hígado, páncreas, vesícula).', functions: ['Ingestión y masticación', 'Digestión química y mecánica', 'Absorción de nutrientes en intestino delgado', 'Eliminación de desechos'], clinical: 'Valorar estado nutricional, ruidos intestinales, deposiciones y signos de malabsorción o patología abdominal.', components: ['Boca, esófago, estómago', 'Intestino delgado (6-7 m)', 'Intestino grueso (1.5 m)', 'Hígado y vesícula biliar', 'Páncreas exocrino'], accordions: [{ q: '¿Dónde se absorbe la mayoría de nutrientes?', a: 'En el intestino delgado (duodeno, yeyuno, íleon) mediante vellosidades intestinales que aumentan la superficie absortiva hasta ~200 m².' }] }, diseases: [{ icon: '🔥', name: 'Úlcera péptica', tag: 'Lesión gástrica/duodenal', def: 'Erosión de la mucosa gástrica o duodenal.', patho: 'Desequilibrio entre factores agresivos (HCl, H. pylori) y protectores (moco, bicarbonato).', etio: 'H. pylori (70%), AINEs, estrés, tabaquismo.', signs: 'Dolor epigástrico urente, náuseas, hematemesis, melena.' }], pae: [{ icon: '📋', title: 'Valoración', desc: 'IMC, albumina, ruidos intestinales, dieta, deposiciones' }, { icon: '🔍', title: 'Diagnóstico', desc: 'Desequilibrio nutricional: ingesta inferior a las necesidades' }, { icon: '🎯', title: 'Planeación', desc: 'Estado nutricional adecuado, hidratación, función intestinal' }, { icon: '💊', title: 'Ejecución', desc: 'Plan nutricional, soporte enteral/parenteral si necesario' }, { icon: '📊', title: 'Evaluación', desc: 'Peso, albúmina, balance nitrogenado, tolerancia oral' }], quiz: [{ q: '¿Dónde se produce la bilis?', opts: ['Páncreas', 'Vesícula biliar', 'Hígado', 'Duodeno'], correct: 2, exp: 'La bilis es producida por los hepatocitos del hígado y almacenada en la vesícula biliar.' }, { q: '¿Qué enzima inicia la digestión de proteínas en el estómago?', opts: ['Lipasa', 'Amilasa', 'Pepsina', 'Tripsina'], correct: 2, exp: 'La pepsina (activada por el pH ácido gástrico) cataliza la hidrólisis inicial de proteínas.' }, { q: '¿Qué vitamina se absorbe en el íleon terminal?', opts: ['Vitamina C', 'Vitamina B12', 'Vitamina A', 'Vitamina D'], correct: 1, exp: 'La vitamina B12 (cobalamina) requiere factor intrínseco gástrico y se absorbe en el íleon terminal.' }, { q: '¿Qué indica albumina < 3.5 g/dL?', opts: ['Deshidratación', 'Hipernutrición', 'Desnutrición proteica', 'Poliglobulia'], correct: 2, exp: 'La albúmina < 3.5 g/dL es indicador de desnutrición proteica o inflamación crónica.' }] },
+  { id: 9, icon: '⚗️', color: '#8B4FC1', title: 'Regulación y equilibrio hormonal', sub: 'Fisiología del sistema endocrino', physiology: { def: 'El sistema endocrino regula funciones vitales mediante hormonas liberadas a la sangre. Actúa lentamente pero con efectos duraderos en metabolismo, crecimiento, reproducción y homeostasis.', functions: ['Regulación del metabolismo (tiroides)', 'Control de glucemia (páncreas)', 'Respuesta al estrés (suprarrenales)', 'Regulación del crecimiento (hipófisis)'], clinical: 'Valorar signos de hiper/hipofunción endocrina, glucemia, perfil tiroideo y niveles hormonales en sangre.', components: ['Hipotálamo e hipófisis', 'Tiroides y paratiroides', 'Páncreas endocrino (islotes de Langerhans)', 'Suprarrenales', 'Gónadas (ovarios/testículos)'], accordions: [{ q: '¿Cómo se regula la secreción hormonal?', a: 'Mediante retroalimentación negativa (feedback): el aumento de hormona periférica inhibe la secreción del eje hipotálamo-hipofisario. Eje HPT (hipotálamo-pituitaria-tiroides) como ejemplo clásico.' }] }, diseases: [{ icon: '🍬', name: 'Diabetes Mellitus Tipo 2', tag: 'Resistencia a la insulina', def: 'Trastorno metabólico con hiperglucemia crónica por resistencia a la insulina.', patho: 'Resistencia periférica a insulina → hiperinsulinemia → agotamiento pancreático → hiperglucemia.', etio: 'Obesidad, sedentarismo, herencia, dieta hipercalórica.', signs: 'Poliuria, polidipsia, polifagia, pérdida de peso, fatiga, cicatrización lenta.' }, { icon: '🦋', name: 'Hipotiroidismo', tag: 'Déficit de hormonas tiroideas', def: 'Producción insuficiente de T3 y T4 por la glándula tiroides.', patho: 'Déficit de T3/T4 → disminución del metabolismo basal → hipotiroidismo.', etio: 'Tiroiditis de Hashimoto, yodopenia, tiroidectomía.', signs: 'Bradicardia, frialdad, constipación, fatiga, mixedema, bradipsiquia.' }], pae: [{ icon: '📋', title: 'Valoración', desc: 'Glucemia, perfil tiroideo, signos de hiper/hipofunción hormonal' }, { icon: '🔍', title: 'Diagnóstico', desc: 'Gestión ineficaz del régimen terapéutico / Riesgo de glucemia inestable' }, { icon: '🎯', title: 'Planeación', desc: 'Glucemia 70-180 mg/dL, adherencia al tratamiento hormonal' }, { icon: '💊', title: 'Ejecución', desc: 'Insulina/antidiabéticos, levotiroxina, educación, dieta' }, { icon: '📊', title: 'Evaluación', desc: 'HbA1c, glucemia pre/postprandial, TSH, T4 libre' }], quiz: [{ q: '¿Qué hormona reduce la glucemia?', opts: ['Glucagón', 'Cortisol', 'Insulina', 'Adrenalina'], correct: 2, exp: 'La insulina (secretada por células β pancreáticas) facilita la captación de glucosa por las células, reduciendo la glucemia.' }, { q: '¿Qué valor de glucemia en ayunas diagnostica diabetes?', opts: ['> 100 mg/dL', '> 110 mg/dL', '> 126 mg/dL', '> 140 mg/dL'], correct: 2, exp: 'Una glucemia en ayunas ≥ 126 mg/dL (en dos ocasiones) es criterio diagnóstico de diabetes mellitus.' }, { q: '¿Qué hormona produce la médula suprarrenal?', opts: ['Aldosterona', 'Cortisol', 'Adrenalina', 'Progesterona'], correct: 2, exp: 'La médula suprarrenal secreta catecolaminas: adrenalina (80%) y noradrenalina (20%) en respuesta al estrés.' }, { q: 'TSH elevada con T4 baja indica:', opts: ['Hipertiroidismo', 'Hipotiroidismo primario', 'Hipotiroidismo central', 'Eutiroidismo'], correct: 1, exp: 'TSH alta con T4 baja es el patrón clásico de hipotiroidismo primario (falla de la tiroides con compensación hipofisaria).' }] }
+];
+
+// ===== STATE =====
+let state = {
+  completedSystems: new Set(),
+  quizScores: {},
+  currentSystem: null,
+  currentTab: 'fisiologia',
+  quizType: 'mcq',
+  quizQuestions: [],
+  quizIndex: 0,
+  quizScore: 0,
+  quizAnswered: false
+};
+
+// ===== RENDER HOME =====
+function renderHome() {
+  const grid = document.getElementById('systems-grid');
+  grid.innerHTML = SYSTEMS.map(s => `
+    <div class="system-card" style="--card-color:${s.color}" onclick="openSystem(${s.id})">
+      <span class="card-icon">${s.icon}</span>
+      <div class="card-num">Sistema ${s.id + 1}</div>
+      <div class="card-title">${s.title}</div>
+      <div class="card-sub">${s.sub}</div>
+      <span class="card-status ${state.completedSystems.has(s.id) ? 'status-done' : 'status-pending'}">
+        ${state.completedSystems.has(s.id) ? '✓ Completado' : '· Pendiente'}
+      </span>
+    </div>
+  `).join('');
+  document.getElementById('nav-progress-pill').textContent = `${state.completedSystems.size}/10`;
+}
+
+// ===== RENDER SYSTEM =====
+function openSystem(id) {
+  state.currentSystem = SYSTEMS[id];
+  const s = state.currentSystem;
+  document.getElementById('sys-title').textContent = s.title;
+  document.getElementById('sys-subtitle').textContent = s.sub;
+
+  renderFisiologia(s);
+  renderEnfermedades(s);
+  renderPAE(s);
+  resetQuiz();
+  showTab('fisiologia');
+  showView('system');
+}
+
+function renderFisiologia(s) {
+  const p = s.physiology;
+  document.getElementById('tab-fisiologia').innerHTML = `
+    <div class="content-block" style="animation-delay:0s">
+      <h3>📌 Definición del sistema</h3>
+      <p>${p.def}</p>
+    </div>
+    <div class="content-block" style="animation-delay:0.07s">
+      <h3>⚙️ Funciones fisiológicas</h3>
+      <ul>${p.functions.map(f => `<li>${f}</li>`).join('')}</ul>
+    </div>
+    <div class="content-block" style="animation-delay:0.14s">
+      <h3>🏥 Importancia clínica en Enfermería</h3>
+      <p>${p.clinical}</p>
+    </div>
+    <div class="content-block" style="animation-delay:0.21s">
+      <h3>🧩 Componentes principales</h3>
+      <ul>${p.components.map(c => `<li>${c}</li>`).join('')}</ul>
+    </div>
+    ${p.accordions ? p.accordions.map((a, i) => `
+      <div class="accordion" style="animation:fadeUp 0.3s ${0.28 + i * 0.07}s ease both">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          <span>💡 ${a.q}</span>
+          <span class="accordion-icon">▾</span>
+        </button>
+        <div class="accordion-body">${a.a}</div>
+      </div>
+    `).join('') : ''}
+  `;
+}
+
+function renderEnfermedades(s) {
+  document.getElementById('tab-enfermedades').innerHTML = `
+    <div style="margin-bottom:1.25rem">
+      <div class="section-title" style="font-size:1.1rem;margin-bottom:0.25rem">Cuando la fisiología falla...</div>
+      <p style="color:var(--text-light);font-size:0.88rem">Haz clic en cada tarjeta para ver más detalles</p>
+    </div>
+    <div class="disease-grid">
+      ${s.diseases.map((d, i) => `
+        <div class="disease-card" onclick="toggleDisease(this)">
+          <div class="disease-card-header">
+            <div class="disease-icon">${d.icon}</div>
+            <div>
+              <div class="disease-name">${d.name}</div>
+              <div class="disease-tag">${d.tag}</div>
+            </div>
+          </div>
+          <div class="disease-body">
+            <dl>
+              <dt>Definición</dt><dd>${d.def}</dd>
+              <dt>Fisiopatología</dt><dd>${d.patho}</dd>
+              <dt>Etiología</dt><dd>${d.etio}</dd>
+              <dt>Manifestaciones clínicas</dt><dd>${d.signs}</dd>
+            </dl>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderPAE(s) {
+  document.getElementById('tab-pae').innerHTML = `
+    <div style="margin-bottom:1.25rem">
+      <div class="section-title" style="font-size:1.1rem;margin-bottom:0.25rem">El cuidado desde la Enfermería</div>
+      <p style="color:var(--text-light);font-size:0.88rem">Proceso de Atención de Enfermería (PAE)</p>
+    </div>
+    <div class="pae-grid">
+      ${s.pae.map((step, i) => `
+        <div class="pae-step" style="animation:fadeUp 0.3s ${i * 0.08}s ease both">
+          <div class="pae-num">${i + 1}</div>
+          <div class="pae-icon">${step.icon}</div>
+          <div class="pae-title">${step.title}</div>
+          <div class="pae-desc">${step.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ===== QUIZ =====
+function selectQuizType(btn, type) {
+  document.querySelectorAll('.quiz-type-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.quizType = type;
+}
+
+function startQuiz() {
+  const s = state.currentSystem;
+  state.quizQuestions = [...s.quiz].sort(() => Math.random() - 0.5).slice(0, 4);
+  state.quizIndex = 0;
+  state.quizScore = 0;
+  document.getElementById('quiz-start-screen').style.display = 'none';
+  document.getElementById('quiz-active-screen').style.display = 'block';
+  document.getElementById('quiz-results-screen').style.display = 'none';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = state.quizQuestions[state.quizIndex];
+  state.quizAnswered = false;
+  const total = state.quizQuestions.length;
+  document.getElementById('q-meta').textContent = `Pregunta ${state.quizIndex + 1} de ${total}`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('quiz-progress-fill').style.width = `${(state.quizIndex / total) * 100}%`;
+  const letters = ['A', 'B', 'C', 'D'];
+  document.getElementById('q-options').innerHTML = q.opts.map((opt, i) => `
+    <button class="option-btn" onclick="answerQuestion(this, ${i})">
+      <span class="option-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </button>
+  `).join('');
+  const fb = document.getElementById('q-feedback');
+  fb.className = 'feedback-box'; fb.textContent = '';
+  document.getElementById('q-next-btn').style.display = 'none';
+}
+
+function answerQuestion(btn, idx) {
+  if (state.quizAnswered) return;
+  state.quizAnswered = true;
+  const q = state.quizQuestions[state.quizIndex];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+  if (idx === q.correct) {
+    state.quizScore++;
+    btn.classList.add('correct');
+    showFeedback(true, '✓ ¡Correcto! ' + q.exp);
+  } else {
+    btn.classList.add('wrong');
+    btns[q.correct].classList.add('correct');
+    showFeedback(false, '✗ Incorrecto. ' + q.exp);
+  }
+  document.getElementById('q-next-btn').style.display = 'inline-flex';
+}
+
+function showFeedback(correct, msg) {
+  const fb = document.getElementById('q-feedback');
+  fb.className = `feedback-box ${correct ? 'correct' : 'wrong'} show`;
+  fb.textContent = msg;
+}
+
+function nextQuestion() {
+  state.quizIndex++;
+  if (state.quizIndex >= state.quizQuestions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  const total = state.quizQuestions.length;
+  const score = state.quizScore;
+  document.getElementById('quiz-active-screen').style.display = 'none';
+  const results = document.getElementById('quiz-results-screen');
+  results.style.display = 'block';
+  document.getElementById('results-score').textContent = `${score}/${total}`;
+  const pct = (score / total) * 100;
+  let title, sub;
+  if (pct === 100) { title = '¡Perfecto! 🎉'; sub = 'Dominas este sistema. ¡Excelente trabajo!'; }
+  else if (pct >= 75) { title = '¡Muy bien! 👏'; sub = 'Buen dominio del tema. Revisa los conceptos marcados.'; }
+  else if (pct >= 50) { title = 'Puedes mejorar 💪'; sub = 'Repasa la sección de fisiología y vuelve a intentarlo.'; }
+  else { title = 'Sigue practicando 📚'; sub = 'Revisa el contenido antes de intentar de nuevo.'; }
+  document.getElementById('results-title').textContent = title;
+  document.getElementById('results-sub').textContent = sub;
+  if (pct >= 50) {
+    state.completedSystems.add(state.currentSystem.id);
+    state.quizScores[state.currentSystem.id] = score;
+  }
+  renderHome();
+  updateProfile();
+}
+
+function restartQuiz() {
+  document.getElementById('quiz-results-screen').style.display = 'none';
+  document.getElementById('quiz-start-screen').style.display = 'block';
+}
+
+function resetQuiz() {
+  document.getElementById('quiz-start-screen').style.display = 'block';
+  document.getElementById('quiz-active-screen').style.display = 'none';
+  document.getElementById('quiz-results-screen').style.display = 'none';
+}
+
+// ===== PROFILE =====
+function updateProfile() {
+  document.getElementById('p-completed').textContent = state.completedSystems.size;
+  const scores = Object.entries(state.quizScores);
+  if (scores.length > 0) {
+    const best = scores.reduce((a, b) => b[1] > a[1] ? b : a);
+    const worst = scores.reduce((a, b) => b[1] < a[1] ? b : a);
+    document.getElementById('p-score').textContent = SYSTEMS[best[0]].icon;
+    document.getElementById('p-reinforce').textContent = SYSTEMS[worst[0]].icon;
+  }
+  const list = document.getElementById('profile-progress-list');
+  list.innerHTML = SYSTEMS.map(s => {
+    const score = state.quizScores[s.id];
+    const pct = score != null ? Math.round((score / 4) * 100) : (state.completedSystems.has(s.id) ? 50 : 0);
+    return `
+      <div class="system-progress-item">
+        <div class="spi-icon">${s.icon}</div>
+        <div class="spi-info">
+          <div class="spi-name">${s.title}</div>
+          <div class="spi-bar"><div class="spi-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="spi-pct">${state.completedSystems.has(s.id) ? pct + '%' : '—'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== INTERACTIONS =====
+function toggleAccordion(btn) {
+  const body = btn.nextElementSibling;
+  const icon = btn.querySelector('.accordion-icon');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+}
+
+function toggleDisease(card) {
+  const body = card.querySelector('.disease-body');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.disease-body').forEach(b => b.classList.remove('open'));
+  if (!isOpen) body.classList.add('open');
+}
+
+function showTab(tabId) {
+  state.currentTab = tabId;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabMap = { fisiologia: 0, enfermedades: 1, pae: 2, quiz: 3 };
+  if (tabBtns[tabMap[tabId]]) tabBtns[tabMap[tabId]].classList.add('active');
+}
+
+function showView(viewId) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + viewId).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const navMap = { home: 'nav-home', profile: 'nav-profile', authors: 'nav-authors' };
+  if (navMap[viewId]) document.getElementById(navMap[viewId]).classList.add('active');
+  if (viewId === 'profile') updateProfile();
+  window.scrollTo(0, 0);
+}
+
+function startLearning() {
+  // Find first incomplete system
+  const first = SYSTEMS.find(s => !state.completedSystems.has(s.id)) || SYSTEMS[0];
+  openSystem(first.id);
+}
+
+// ===== INIT =====
+renderHome();
+updateProfile();
+</script>
+</body>
+</html>
